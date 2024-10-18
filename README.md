@@ -83,3 +83,96 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+
+## google authentification 
+1. Go to Google Cloud Console:
+
+Open your browser and navigate to Google Cloud Console.
+
+2 . Create a New Project (if you don't have one already):
+
+In the top-left corner, click the project dropdown.
+Click New Project.
+Provide a name for your project and select a location (if necessary).
+Click Create.
+
+3 . Enable the Google OAuth API:
+
+After creating the project, go to the API & Services section on the left-hand sidebar.
+Click Library.
+In the search bar, type "Google OAuth" or "Google+ API".
+Select Google Identity Platform (OAuth) and click Enable.
+
+4 . Create OAuth 2.0 Credentials:
+
+Go to the Credentials tab on the left sidebar under the APIs & Services section.
+Click + CREATE CREDENTIALS at the top of the page and select OAuth 2.0 Client IDs.
+You will be prompted to configure the OAuth consent screen.
+
+5 . Configure the OAuth Consent Screen:
+
+Select either External (if you plan to let users outside your organization authenticate) or Internal (for GSuite users in your organization).
+Fill in the basic information, including your app name, user support email, and app domain (if applicable).
+For testing purposes, you can skip the "Scopes" section and just click Save and Continue.
+6 . Create the OAuth 2.0 Client ID:
+
+Once your OAuth consent screen is set up, return to Credentials and create the OAuth 2.0 credentials.
+Select Web application as the application type.
+Provide a name for your OAuth 2.0 client ID.
+Under Authorized redirect URIs, you need to specify where Google will redirect users after they authenticate. For example, http://localhost:3000/auth/google/callback if you're running locally or the relevant URI in production.
+Click Create.
+
+7 . Get the clientID and clientSecret:
+
+After you create the credentials, Google will provide you with a Client ID and Client Secret.
+Copy them and store them in your .env file or your configuration.
+
+8 . Set Redirect URI in Google Console (Optional if not done earlier):
+
+If you didn't set the redirect URIs earlier, go back to your OAuth 2.0 Client ID entry in the credentials section, and click Edit.
+Add the redirect URI: http://localhost:3000/auth/google/callback (or your production URI).
+
+
+
+## github authentifivation
+
+1 . Se connecter à GitHub :
+
+Rendez-vous sur GitHub et connectez-vous à votre compte.
+
+2 . Accéder aux paramètres du compte développeur :
+
+Cliquez sur votre avatar dans le coin supérieur droit et sélectionnez Settings (Paramètres).
+Dans la barre latérale gauche, sous Developer settings, cliquez sur OAuth Apps.
+
+3 . Créer une nouvelle application OAuth :
+
+Dans la section OAuth Apps, cliquez sur New OAuth App.
+
+4 . Configurer votre application OAuth : Remplissez les champs requis :
+
+Application Name: Donnez un nom à votre application (par exemple, "MonApplicationOAuth").
+Homepage URL: Indiquez l'URL de votre site ou de l'application. Si vous êtes en développement local, cela pourrait être http://localhost:3000.
+Authorization callback URL: C'est l'URL où GitHub redirigera l'utilisateur après l'authentification. Pour une application locale, cela pourrait être quelque chose comme : http://localhost:3000/auth/github/callback. 
+Exemple de valeurs en développement local :
+
+Homepage URL: http://localhost:3000
+Callback URL: http://localhost:3000/auth/github/callback
+
+5 . Enregistrer l'application :
+
+Une fois les informations saisies, cliquez sur Register Application.
+
+6 . Obtenir le clientID et clientSecret :
+
+Après l’enregistrement, vous verrez votre Client ID directement dans la page d’informations de l’application.
+
+7. Cliquez sur Generate a new client secret pour obtenir votre clientSecret.
+
+8. Copiez ces deux valeurs pour les utiliser dans votre application NestJS.
+Ajouter le clientID et clientSecret dans votre fichier .env
+
+
+
+
