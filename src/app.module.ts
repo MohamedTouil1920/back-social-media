@@ -8,6 +8,12 @@ import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
 import { SharedModule } from './shared.module';
 
+import { LikeModule } from './like/like.module';
+import { CommentaireModule } from './commentaire/commentaire.module';
+import { PublicationModule } from './publication/publication.module';
+import { NotificationModule } from './notification/notification.module';
+import { NotificationModule } from './notification/notification.module';
+
 @Module({
   imports: [ TypeOrmModule.forRoot({
     type: "mysql",
@@ -19,7 +25,7 @@ import { SharedModule } from './shared.module';
     entities:[User],
     synchronize: true,
     
-    }),SharedModule, AuthModule],
+    }),SharedModule, AuthModule,  LikeModule, CommentaireModule, PublicationModule, NotificationModule],
   controllers: [AppController],
   providers: [AppService],
 })
