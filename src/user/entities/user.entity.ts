@@ -1,11 +1,11 @@
-import { Commentaire } from 'src/commentaire/entities/commentaire.entity';
-import { Like } from 'src/like/entities/like.entity';
-import { Publication } from 'src/publication/entities/publication.entity';
+import { Like } from './../../like/entities/like.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany, JoinTable } from 'typeorm';
+import { Publication } from './../../publication/entities/publication.entity';
+import { Commentaire } from './../../commentaire/entities/commentaire.entity';
 
 @Entity('user')
 export class User {
-  @PrimaryGeneratedColumn()
+  @Column({primary:true,generated:true})
   id: number;
 
   @Column({ unique: true , nullable: false})
@@ -16,10 +16,10 @@ export class User {
 
  
 
-  @Column({  })
+  @Column()
   firstName: string;
 
-  @Column({ })
+  @Column()
   LastName: string;
  
   @Column({default:"user"})

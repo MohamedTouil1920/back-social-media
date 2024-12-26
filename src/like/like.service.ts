@@ -4,26 +4,31 @@ import { Repository } from 'typeorm';
 
 import { NotificationService } from '../notification/notification.service';
 import { Like } from '../like/entities/like.entity';
-import { Publication } from 'src/publication/entities/publication.entity';
 
 import { User } from 'src/user/entities/user.entity';
 import { Commentaire } from 'src/commentaire/entities/commentaire.entity';
+import { Publication } from './../publication/entities/publication.entity';
 
 @Injectable()
 export class LikesService {
   constructor(
     @InjectRepository(Publication)
     private postsRepository: Repository<Publication>,
-    @InjectRepository(Comment)
+    @InjectRepository(Commentaire)
     private commentairesRepository: Repository<Commentaire>,
     private notificationsService: NotificationService,
   ) {}
 
   async toggleLikeOnPost(postId: number, userId: number): Promise<Publication> {
+    console.log(postId);
+    
     const post = await this.postsRepository.findOne({
-      where: { id: postId },
-      relations: ['author', 'likes'],
+      where: {id: postId },
+      relations: ['author'],
     });
+    console.log(post);
+    console.log(userId);
+    
 
     if (!post) {
       throw new NotFoundException('Post not found');
@@ -40,6 +45,8 @@ export class LikesService {
       post.likes.push(newLike);
 
       if (post.author.id !== userId) {
+        console.log("hello");
+        
         await this.notificationsService.create({
           userId: post.author.id,
           type: 'LIKE',
@@ -50,6 +57,7 @@ export class LikesService {
     } else {
       post.likes.splice(likeIndex, 1);
     }
+    console.log(post);
 
     return this.postsRepository.save(post);
   }
@@ -74,9 +82,9 @@ export class LikesService {
       newLike.user = { id: userId } as User;
       comment.likes.push(newLike);
 
-      if (comment.author.id !== userId) {
+      if (comment.user.id !== userId) {
         await this.notificationsService.create({
-          userId: comment.author.id,
+          userId: comment.user.id,
           type: 'LIKE',
           triggeredById: userId,
           commentId: commentId,

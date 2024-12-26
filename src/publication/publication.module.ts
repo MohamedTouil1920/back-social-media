@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { PublicationService } from './publication.service';
 import { PublicationController } from './publication.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -11,8 +11,8 @@ import { CommentaireModule } from 'src/commentaire/commentaire.module';
   imports: [
     TypeOrmModule.forFeature([Publication]),
     UserModule,
-    LikeModule,
-    CommentaireModule
+    forwardRef(()=>LikeModule),
+    forwardRef(() => CommentaireModule)
    
   ],
   controllers: [PublicationController],

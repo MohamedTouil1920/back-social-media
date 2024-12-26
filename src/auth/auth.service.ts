@@ -18,16 +18,15 @@ export class AuthService {
     private readonly usersService: UsersService,
     
     private readonly jwtService: JwtService,
-  ) 
-  {console.log('UsersService:', usersService); }
-  async register({ fullName, email, password }: RegisterDto) {
+  ){}
+  async register({ email, password,firstName,LastName }: RegisterDto) {
     const user = await this.usersService.findOneByEmail(email);
     console.log(user)
     if (user) {
       throw new BadRequestException("Email already exists");
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    await this.usersService.create({ fullName, email, password: hashedPassword });
+    await this.usersService.create({email, password:hashedPassword,firstName,LastName });
     return {
       "message": "User created successfully"
     };
@@ -51,7 +50,7 @@ export class AuthService {
     if (!isPasswordValid) {
       throw new UnauthorizedException("Invalid password");
     }
-    const payload = { email: user.email}
+    const payload = { email: user.email , id:user.id , name : user.firstName + ' ' + user.LastName}
     const token = await this.jwtService.signAsync(payload)
     return {
       token: token,

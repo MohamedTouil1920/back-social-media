@@ -5,9 +5,9 @@ import { UpdateCommentaireDto } from './dto/update-commentaire.dto';
 import { User } from 'src/user/entities/user.entity';
 import { Publication } from 'src/publication/entities/publication.entity';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { AuthGuard } from '@nestjs/passport';
 import { diskStorage } from 'multer';
 import { FileValidationPipe } from 'src/publication/File-Valdaion-Pipe';
+import { AuthGuard } from './../auth/auth.guard';
 
 @Controller('commentaires')
 export class CommentaireController {
@@ -16,7 +16,7 @@ export class CommentaireController {
   // Créer un commentaire pour une publication donnée
   @Post('publication/:publicationId')
  
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard)
   @Post()
   @UseInterceptors(
     FileInterceptor('media', {
@@ -42,13 +42,13 @@ export class CommentaireController {
   @UsePipes(FileValidationPipe)  // Ajout du pipe de validation
   async create(
     @Body() createcommentaireDto: CreateCommentaireDto,
-    @UploadedFile() media: Express.Multer.File,
-    @Req() req,
+    @UploadedFile() media?: Express.Multer.File,
+    @Req() req?,
   ) {
     const mediaUrl = media ? `/uploads/${media.filename}` : null;
     const mediaType = media ? media.mimetype.startsWith('image') ? 'image' : 'video' : null;
 
-    return this.commentaireService.create(createcommentaireDto, req.user, mediaUrl, mediaType);
+    return this.commentaireService.create(createcommentaireDto, req.user.id, mediaUrl, mediaType);
   }
   // Récupérer tous les commentaires pour une publication
   @Get('publication/:publicationId')

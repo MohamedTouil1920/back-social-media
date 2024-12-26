@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { User } from '../../user/entities/user.entity';
 import { Publication } from '../../publication/entities/publication.entity';
-import { Commentaire } from '../../commentaire/entities/commentaire.entity';
+import { Commentaire } from 'src/commentaire/entities/commentaire.entity';
 
 
 @Entity('notifications')
@@ -14,15 +14,15 @@ export class Notification {
   user: User;
 
   @ManyToOne(() => User)
-  @JoinColumn({ name: 'triggered_by_id' })
+  @JoinColumn({ name: 'triggeredBy' })
   triggeredBy: User;
 
   @ManyToOne(() => Publication)
-  @JoinColumn({ name: 'publication_id' })
+  @JoinColumn({ name: 'publication' })
   publication: Publication;
 
-  @ManyToOne(() => Comment)
-  @JoinColumn({ name: 'comment_id' })
+  @ManyToOne(() => Commentaire)
+  @JoinColumn({ name: 'comment' })
   commentaire: Commentaire;
 
   @Column()

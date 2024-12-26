@@ -1,5 +1,8 @@
-import { Body, Controller, Param, Post } from '@nestjs/common';
+import { Body, Controller, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { LikesService } from './like.service';
+import { AuthGuard } from 'src/auth/auth.guard';
+
+  @UseGuards(AuthGuard)
 
 @Controller('likes')
 export class LikeController {
@@ -8,9 +11,8 @@ export class LikeController {
   @Post('post/:postId')
   async toggleLikeOnPost(
     @Param('postId') postId: number,
-    @Body('userId') userId: number,
-  ) {
-    return await this.likeService.toggleLikeOnPost(postId, userId);
+    @Req() req  ) {
+    return await this.likeService.toggleLikeOnPost(postId, req.user.id);
   }
 
   @Post('comment/:commentId')

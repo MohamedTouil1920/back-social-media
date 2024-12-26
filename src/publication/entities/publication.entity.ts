@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
-import { User } from '../../user/entities/user.entity';
-import { Like } from '../../like/entities/like.entity';
 
 import { Commentaire } from 'src/commentaire/entities/commentaire.entity';
+import { Like } from './../../like/entities/like.entity';
+import { User } from 'src/user/entities/user.entity';
 
 @Entity()
 export class Publication {
@@ -16,14 +16,20 @@ export class Publication {
   content: string;
 
   @ManyToOne(() => User, user => user.publications) // Define the relation here
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'author' })
   author: User;
 
-  @OneToMany(() => Like, (like) => like.publication)
+  @OneToMany(() => Like, (like) => like.id)
   likes: Like[];
 
   @OneToMany(() => Commentaire, (commentaire) => commentaire.publication)
   commentaires: Commentaire[];
+
+  @Column()
+  mediaUrl?: string; // Ajout du mediaUrl
+  @Column()
+  mediaType?: string; // Ajout du mediaType
+
 
   @Column({ default: 0 })
   likesCount: number;

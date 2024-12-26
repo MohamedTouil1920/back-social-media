@@ -1,7 +1,7 @@
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 
-export const mediaInterceptor = FileInterceptor('media', {
+export const mediaInterceptor = FileInterceptor('myMedia', {
   storage: diskStorage({
     destination: './uploads',
     filename: (req, file, callback) => {
@@ -15,7 +15,7 @@ export const mediaInterceptor = FileInterceptor('media', {
     if (allowedMimeTypes.includes(file.mimetype)) {
       callback(null, true); // Accepté
     } else {
-      callback(new Error('Type de fichier non autorisé'), false); // Rejeté
+      callback(new Error('Type de fichier non autorisé 0'), false); // Rejeté
     }
   },
 });

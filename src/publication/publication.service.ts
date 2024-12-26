@@ -15,12 +15,8 @@ export class PublicationService {
 
   // Création d'une publication
   async create(createPublicationDto: CreatePublicationDto, user: User, mediaUrl: string, mediaType: string): Promise<Publication> {
-    const publication = this.publicationRepository.create({
-      ...createPublicationDto,
-      user,
-      mediaUrl,
-      mediaType,
-    });
+    console.log(user)
+    const publication = this.publicationRepository.create({...createPublicationDto,author:user,mediaUrl:mediaUrl,mediaType:mediaType})
     return await this.publicationRepository.save(publication);
   }
 

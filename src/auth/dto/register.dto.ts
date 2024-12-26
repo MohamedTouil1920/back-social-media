@@ -6,7 +6,10 @@ import { Transform } from '@nestjs/class-transformer';
 export class RegisterDto{
     @IsString()
     @MinLength(1)
-    fullName:string;
+    firstName:string;
+    @IsString()
+    @MinLength(1)
+    LastName:string;
     @IsEmail()
     email:string;
     @IsString()

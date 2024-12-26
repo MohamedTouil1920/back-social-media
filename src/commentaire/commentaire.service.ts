@@ -13,12 +13,12 @@ export class CommentaireService {
     private  commentaireRepository: Repository<Commentaire>,
   ){}
   // creation de commentaire
-  async create(_createcommentaireDto: CreateCommentaireDto, user: User, mediaUrl: string, mediaType: string): Promise<Commentaire> {
+  async create(_createcommentaireDto: CreateCommentaireDto, user: User, mediaUrl?: string, mediaType?: string): Promise<Commentaire> {
     const commentaire = this.commentaireRepository.create({
       ...CreateCommentaireDto,
-      user,
-      mediaUrl,
-      mediaType,
+      user:user,
+      mediaUrl:mediaUrl,
+      mediaType:mediaType,
     });
     return await this.commentaireRepository.save(commentaire);
   }

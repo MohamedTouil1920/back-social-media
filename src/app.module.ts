@@ -12,7 +12,6 @@ import { LikeModule } from './like/like.module';
 import { CommentaireModule } from './commentaire/commentaire.module';
 import { PublicationModule } from './publication/publication.module';
 import { NotificationModule } from './notification/notification.module';
-import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [ TypeOrmModule.forRoot({
@@ -23,6 +22,7 @@ import { NotificationModule } from './notification/notification.module';
     password: "",
     database: "tek",
     entities:[User],
+    autoLoadEntities: true,
     synchronize: true,
     
     }),SharedModule, AuthModule,  LikeModule, CommentaireModule, PublicationModule, NotificationModule],

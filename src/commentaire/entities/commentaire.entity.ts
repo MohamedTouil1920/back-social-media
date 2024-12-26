@@ -17,8 +17,14 @@ export class Commentaire {
   @ManyToOne(() => Publication, (publication) => publication.commentaires)
   publication: Publication;
 
-  @OneToMany(() => Like, (like) => like.commentaire)
+  @OneToMany(() => Like, (like) => like.id)
   likes: Like[];
+  
+  @Column()
+  mediaUrl?: string; // Ajout du mediaUrl
+
+  @Column()
+  mediaType?: string; // Ajout du mediaType
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;

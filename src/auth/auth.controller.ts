@@ -14,11 +14,10 @@ export class AuthController {
                private readonly userservice: UsersService
   ) {}
 // local Authentification
-@UseGuards(LocalAuthGuard)
-@Post("register")
-register(@Body() registerDto : RegisterDto){
-    return this.authService.register(registerDto);
-}
+  @Post("register")
+  register(@Body() registerDto : RegisterDto){
+      return this.authService.register(registerDto);
+  }
   @Post('login')
   async login(@Body() loginDto: LoginDto ) {
     return this.authService.login(loginDto); // req.user est fourni par LocalStrategy
