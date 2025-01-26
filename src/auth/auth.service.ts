@@ -54,7 +54,8 @@ export class AuthService {
     const token = await this.jwtService.signAsync(payload)
     return {
       token: token,
-      email: user.email
+      email: payload.email,
+      fname : payload.name
   }
 }
 async verifyResetPasswordToken({ token }: { token: string }) {
